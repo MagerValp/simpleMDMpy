@@ -23,13 +23,16 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
         """base api url"""
         return 'https://a.simplemdm.com/api/v1' + path
 
-    def _get_data(self, base_url, params=None):
+    def _get_data(self, url, params=None):
         """GET call to SimpleMDM API"""
         start_id = 0
         has_more = True
         list_data = []
+        if params is None:
+            params = {}
+        params["limit"] = 100
         while has_more:
-            url = base_url + "?limit=100&starting_after=" + str(start_id)
+            params["starting_after"] = start_id
             resp = requests.get(url, params, auth=(self.api_key, ""), proxies=self.proxyDict)
             if not 200 <= resp.status_code <= 207:
                 raise ApiError(f"API returned status code {resp.status_code}")
