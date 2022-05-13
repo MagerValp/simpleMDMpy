@@ -107,6 +107,17 @@ class Devices(SimpleMDMpy.SimpleMDM.Connection):
         data = {}
         return self._post_data(url, data)
 
+    def enable_remote_desktop(self, device_id):
+        """You can use this method to enable remote desktop. Supported by macOS 10.14.4+ devices only."""
+        url = self.url + "/" + str(device_id) + "/remote_desktop"
+        data = {}
+        return self._post_data(url, data)
+
+    def disable_remote_desktop(self, device_id):
+        """You can use this method to disable remote desktop. Supported by macOS 10.14.4+ devices only."""
+        url = self.url + "/" + str(device_id) + "/remote_desktop"
+        return self._delete_data(url)
+
     def refresh_device(self, device_id):
         """Request a refresh of the device information and app inventory.
         SimpleMDM will update the inventory information when the device responds
