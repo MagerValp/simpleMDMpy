@@ -46,9 +46,19 @@ class Devices(SimpleMDMpy.SimpleMDM.Connection):
         url = self.url + "/" + str(device_id)
         return self._delete_data(url) #pylint: disable=too-many-function-args
 
+    def list_profiles(self, device_id):
+        """Returns a listing of profiles that are directly assigned to the device."""
+        url = self.url + "/" + str(device_id) + "/profiles"
+        return self._get_data(url)
+
     def list_installed_apps(self, device_id):
         """Returns a listing of the apps installed on a device."""
         url = self.url + "/" + str(device_id) + "/installed_apps"
+        return self._get_data(url)
+
+    def list_users(self, device_id):
+        """Returns a listing of the user accounts on a device."""
+        url = self.url + "/" + str(device_id) + "/users"
         return self._get_data(url)
 
     def push_apps_device(self, device_id):
