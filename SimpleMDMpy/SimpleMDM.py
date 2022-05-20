@@ -7,6 +7,8 @@ from builtins import str
 from builtins import range
 from builtins import object
 import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 import time
 
 
@@ -23,6 +25,15 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
 
     def __init__(self, api_key):
         self.api_key = api_key
+        retry_strategy = Retry(
+            total = 5,
+            backoff_factor = 1,
+            status_forcelist = [500, 502, 503, 504],
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        self.session = requests.Session()
+        self.session.mount("https://", adapter)
+        self.session.mount("http://", adapter)
 
     def _url(self, path): #pylint: disable=no-self-use
         """base api url"""
@@ -47,7 +58,7 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
                     time.sleep(time.time() - self.last_device_req_timestamp)
             self.last_device_req_timestamp = time.time()
             while True:
-                resp = requests.get(url, params, auth=(self.api_key, ""), proxies=self.proxyDict)
+                resp = self.session.get(url, params=params, auth=(self.api_key, ""), proxies=self.proxyDict)
                 # A 429 means we've hit the rate limit, so back off and retry
                 if resp.status_code == 429:
                     time.sleep(1)
