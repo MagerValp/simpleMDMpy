@@ -42,8 +42,10 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
     def _is_devices_req(self, url):
         return url.startswith(self._url("/devices"))
 
-    def _get_data(self, url, params=None):
-        """GET call to SimpleMDM API"""
+    def _get_data(self, url, params=None, raw_content=False):
+        """GET call to SimpleMDM API. If raw_content is True the raw response
+        data will be returned, otherwise the response is assumed to be json
+        and pagination is supported."""
         start_id = 0
         has_more = True
         list_data = []
@@ -66,6 +68,8 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
                     break
             if not 200 <= resp.status_code <= 207:
                 raise ApiError(f"API returned status code {resp.status_code}")
+            if raw_content:
+                return resp.content
             resp_json = resp.json()
             data = resp_json['data']
             # If the response isn't a list, return the single item.
@@ -77,11 +81,6 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
             if has_more:
                 start_id = data[-1].get('id')
         return list_data
-
-    def _get_xml(self, url, params=None):
-        """GET call to SimpleMDM API"""
-        resp = requests.get(url, params, auth=(self.api_key, ""), proxies=self.proxyDict)
-        return resp.content
 
     def _patch_data(self, url, data, files=None):
         """PATCH call to SimpleMDM API"""
