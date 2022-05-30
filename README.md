@@ -260,9 +260,10 @@ class Devices(SimpleMDMpy.SimpleMDM.Connection)
  |  get_custom_attribute(self, device_id, custom_attribute_name)
  |      get a devices custom attributes
  |
- |  get_device(self, device_id='all', search=None)
+ |  get_device(self, device_id='all', search=None, include_awaiting_enrollment=False)
  |      Returns a device specified by id. If no ID or search is
- |      specified all devices will be returned
+ |      specified all devices will be returned. Default does not include devices
+ |      waiting for enrollment
  |
  |  list_installed_apps(self, device_id)
  |      Returns a listing of the apps installed on a device.

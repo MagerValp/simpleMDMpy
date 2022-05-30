@@ -22,6 +22,8 @@ class Devices(SimpleMDMpy.SimpleMDM.Connection):
             data['include_awaiting_enrollment'] = True
         elif device_id != 'all':
             url = url + "/" + str(device_id)
+        if include_awaiting_enrollment:
+            data.update({'include_awaiting_enrollment': include_awaiting_enrollment})
         return self._get_data(url, data)
 
     def create_device(self, name, group_id):
