@@ -52,7 +52,7 @@ class CustomConfigurationProfiles(SimpleMDMpy.SimpleMDM.Connection):
     def download_profile(self, profile_id):
         """downloads custom profile"""
         url = self.url + "/" + profile_id + "/download/"
-        return self._get_xml(url)
+        return self._get_raw_content(url)
 
     def assign_to_device_group(self, profile_id, device_group_id):
         """assigns custom profile to group"""
