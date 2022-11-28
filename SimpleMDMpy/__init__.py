@@ -1,10 +1,20 @@
-""" SimpleMDMpy - A python API for interacting with SimpleMDM API.
-Your Simple MDM API is required."""
+"""SimpleMDMpy - A python API for interacting with the SimpleMDM API.
+Official API documentation is available at https://api.simplemdm.com
+
+A SimpleMDM API key is required."""
+
 #pylint: disable=invalid-name
 
 
 # Import exceptions
 from SimpleMDMpy.Exceptions import *
+
+
+# New session based API
+from SimpleMDMpy.SimpleMDM import Session
+
+
+# Imports for legacy API use
 from SimpleMDMpy.Account import Account
 from SimpleMDMpy.AppGroups import AppGroups
 from SimpleMDMpy.Apps import Apps
