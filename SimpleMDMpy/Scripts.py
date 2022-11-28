@@ -7,7 +7,7 @@ from SimpleMDMpy.SimpleMDM import Connection, ApiError
 class Scripts(Connection):
     """scripts module for SimpleMDMpy"""
     def __init__(self, api_key):
-        Connection.__init__(self, api_key)
+        super().__init__(api_key)
         self.url = self._url("/scripts")
 
     def get_script(self, script_id="all"):
