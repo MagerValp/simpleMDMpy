@@ -9,7 +9,7 @@ import SimpleMDMpy.SimpleMDM
 class PushCertificate(SimpleMDMpy.SimpleMDM.Connection):
     """Push cert module actions"""
     def __init__(self, api_key):
-        super().__init__(self, api_key)
+        super().__init__(api_key)
         self.url = self._url("/push_certificate")
 
     def getpush_certificate(self):

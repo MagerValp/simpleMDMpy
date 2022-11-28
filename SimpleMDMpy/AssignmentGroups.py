@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class AssignmentGroups(SimpleMDMpy.SimpleMDM.Connection):
     """assignment groups module for SimpleMDMpy"""
     def __init__(self, api_key):
-        super().__init__(self, api_key)
+        super().__init__(api_key)
         self.url = self._url("/assignment_groups")
 
     def get_assignment_groups(self, assignment_group_id="all"):

@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class CustomAttributes(SimpleMDMpy.SimpleMDM.Connection):
     """work with custom attributes"""
     def __init__(self, api_key):
-        super().__init__(self, api_key)
+        super().__init__(api_key)
         self.url = self._url("/custom_attributes")
 
     def get_custom_attributes(self):

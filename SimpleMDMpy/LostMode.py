@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class LostMode(SimpleMDMpy.SimpleMDM.Connection):
     """Interact with lost mode on a device."""
     def __init__(self, api_key):
-        super().__init__(self, api_key)
+        super().__init__(api_key)
         self.url = self._url("/devices")
 
     def enable(self, device_id):

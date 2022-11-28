@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class Devices(SimpleMDMpy.SimpleMDM.Connection):
     """devices module for SimpleMDMpy"""
     def __init__(self, api_key):
-        super().__init__(self, api_key)
+        super().__init__(api_key)
         self.url = self._url("/devices")
 
     def get_device(self, device_id="all", search=None, include_awaiting_enrollment=False):
