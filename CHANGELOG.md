@@ -22,6 +22,7 @@
 - Adds help docs to Devices.get_device() - TY [@bryanheinz](https://github.com/bryanheinz)
 - Add Scripts and ScriptJobs - TY [@MagerValp](https://github.com/MagerValp)
 - Fix pagination - TY [@jcfrt](https://github.com/jcfrt)
+- Fix rate limiting - TY [@MagerValp](https://github.com/MagerValp)
 
 ### Issues
 
