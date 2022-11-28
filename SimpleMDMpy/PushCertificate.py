@@ -6,7 +6,7 @@ Certificate utilized by the account."""
 
 import SimpleMDMpy.SimpleMDM
 
-class PushCertificate(SimpleMDMpy.SimpleMDM.Connection):
+class PushCertificate(SimpleMDMpy.SimpleMDM.Resource):
     """Push cert module actions"""
     def __init__(self, api_key):
         super().__init__(api_key)

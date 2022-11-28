@@ -24,7 +24,7 @@ Help available via `help(SimpleMDMpy)`
 ### Account
 
 ```python
-class Account(SimpleMDMpy.SimpleMDM.Connection)
+class Account(SimpleMDMpy.SimpleMDM.Resource)
  |  account class provides auth and basic account details
  |
  |  Methods defined here:
@@ -41,7 +41,7 @@ class Account(SimpleMDMpy.SimpleMDM.Connection)
 ### App Groups
 
 ```python
-class AppGroups(SimpleMDMpy.SimpleMDM.Connection)
+class AppGroups(SimpleMDMpy.SimpleMDM.Resource)
  |  App Groups class provides interaction with Application Groups
  |
  |  Methods defined here:
@@ -90,7 +90,7 @@ class AppGroups(SimpleMDMpy.SimpleMDM.Connection)
 ### Apps
 
 ```python
-class Apps(SimpleMDMpy.SimpleMDM.Connection)
+class Apps(SimpleMDMpy.SimpleMDM.Resource)
  |  apps module for SimpleMDMpy
  |
  |  Methods defined here:
@@ -114,7 +114,7 @@ class Apps(SimpleMDMpy.SimpleMDM.Connection)
 ### Assignment Groups
 
 ```python
-class AssignmentGroups(SimpleMDMpy.SimpleMDM.Connection)
+class AssignmentGroups(SimpleMDMpy.SimpleMDM.Resource)
  |  assignment groups module for SimpleMDMpy
  |
  |  Methods defined here:
@@ -163,7 +163,7 @@ class AssignmentGroups(SimpleMDMpy.SimpleMDM.Connection)
 ### Custom Attributes
 
 ```python
-class CustomAttributes(SimpleMDMpy.SimpleMDM.Connection)
+class CustomAttributes(SimpleMDMpy.SimpleMDM.Resource)
  |  work with custom attributes
  |
  |  Methods defined here:
@@ -185,7 +185,7 @@ class CustomAttributes(SimpleMDMpy.SimpleMDM.Connection)
 
 ### Custom Configuration Profiles
 ```python
-class CustomConfigurationProfiles(SimpleMDMpy.SimpleMDM.Connection)
+class CustomConfigurationProfiles(SimpleMDMpy.SimpleMDM.Resource)
  |  work with custom profiles
  |
  |  Methods defined here:
@@ -218,7 +218,7 @@ class CustomConfigurationProfiles(SimpleMDMpy.SimpleMDM.Connection)
 ### DEP Servers
 
 ```python
-class DepServers(SimpleMDMpy.SimpleMDM.Connection)
+class DepServers(SimpleMDMpy.SimpleMDM.Resource)
  |  module for interacting with dep server configurations
  |
  |  Methods defined here:
@@ -239,7 +239,7 @@ class DepServers(SimpleMDMpy.SimpleMDM.Connection)
 ### Devices
 
 ```python
-class Devices(SimpleMDMpy.SimpleMDM.Connection)
+class Devices(SimpleMDMpy.SimpleMDM.Resource)
  |  devices module for SimpleMDMpy
  |
  |  Methods defined here:
@@ -313,7 +313,7 @@ class Devices(SimpleMDMpy.SimpleMDM.Connection)
 ### Device Groups
 
 ```python
-class DeviceGroups(SimpleMDMpy.SimpleMDM.Connection)
+class DeviceGroups(SimpleMDMpy.SimpleMDM.Resource)
  |  device groups module for SimpleMDMpy
  |
  |  Methods defined here:
@@ -331,7 +331,7 @@ class DeviceGroups(SimpleMDMpy.SimpleMDM.Connection)
 ### Enrollments
 
 ```python
-class Enrollments(SimpleMDMpy.SimpleMDM.Connection)
+class Enrollments(SimpleMDMpy.SimpleMDM.Resource)
  |  enrollments module for SimpleMDMpy
  |
  |  Methods defined here:
@@ -352,7 +352,7 @@ class Enrollments(SimpleMDMpy.SimpleMDM.Connection)
 ### Installed Apps
 
 ```python
-class InstalledApps(SimpleMDMpy.SimpleMDM.Connection)
+class InstalledApps(SimpleMDMpy.SimpleMDM.Resource)
  |  Installed apps represent apps that are installed and exist on devices.
  |
  |  Methods defined here:
@@ -375,7 +375,7 @@ class InstalledApps(SimpleMDMpy.SimpleMDM.Connection)
 ### Logs
 
 ```python
-class Logs(SimpleMDMpy.SimpleMDM.Connection)
+class Logs(SimpleMDMpy.SimpleMDM.Resource)
  |  GET all the LOGS
  |
  |  Methods defined here:
@@ -391,7 +391,7 @@ class Logs(SimpleMDMpy.SimpleMDM.Connection)
 ### Lost Mode
 
 ```python
-class LostMode(SimpleMDMpy.SimpleMDM.Connection)
+class LostMode(SimpleMDMpy.SimpleMDM.Resource)
  |  Interact with lost mode on a device.
  |
  |  Methods defined here:
@@ -419,7 +419,7 @@ class LostMode(SimpleMDMpy.SimpleMDM.Connection)
 ### Managed App Configs
 
 ```python
-class ManagedAppConfigs(SimpleMDMpy.SimpleMDM.Connection)
+class ManagedAppConfigs(SimpleMDMpy.SimpleMDM.Resource)
  |  Create, modify, and remove the managed app configuration
  |  associated with an app.
  |
@@ -444,7 +444,7 @@ class ManagedAppConfigs(SimpleMDMpy.SimpleMDM.Connection)
 ### Push Certificate
 
 ```python
-class PushCertificate(SimpleMDMpy.SimpleMDM.Connection)
+class PushCertificate(SimpleMDMpy.SimpleMDM.Resource)
  |  Push cert module actions
  |
  |  Methods defined here:

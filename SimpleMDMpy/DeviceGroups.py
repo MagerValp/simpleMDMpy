@@ -5,7 +5,7 @@
 
 import SimpleMDMpy.SimpleMDM
 
-class DeviceGroups(SimpleMDMpy.SimpleMDM.Connection):
+class DeviceGroups(SimpleMDMpy.SimpleMDM.Resource):
     """device groups module for SimpleMDMpy"""
     def __init__(self, api_key):
         super().__init__(api_key)

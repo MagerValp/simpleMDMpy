@@ -5,7 +5,7 @@
 
 import SimpleMDMpy.SimpleMDM
 
-class DepServers(SimpleMDMpy.SimpleMDM.Connection):
+class DepServers(SimpleMDMpy.SimpleMDM.Resource):
     """module for interacting with dep server configurations"""
     def __init__(self, api_key):
         super().__init__(api_key)

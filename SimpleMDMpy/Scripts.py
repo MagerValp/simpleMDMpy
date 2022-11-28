@@ -1,10 +1,10 @@
 """Scripts module for SimpleMDMpy"""
 
 
-from SimpleMDMpy.SimpleMDM import Connection, ApiError
+from SimpleMDMpy.SimpleMDM import Resource, ApiError
 
 
-class Scripts(Connection):
+class Scripts(Resource):
     """scripts module for SimpleMDMpy"""
     def __init__(self, api_key):
         super().__init__(api_key)

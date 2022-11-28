@@ -5,7 +5,7 @@
 
 import SimpleMDMpy.SimpleMDM
 
-class Logs(SimpleMDMpy.SimpleMDM.Connection):
+class Logs(SimpleMDMpy.SimpleMDM.Resource):
     """GET all the LOGS"""
     def __init__(self, api_key):
         super().__init__(api_key)

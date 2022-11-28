@@ -5,7 +5,7 @@
 
 import SimpleMDMpy.SimpleMDM
 
-class InstalledApps(SimpleMDMpy.SimpleMDM.Connection):
+class InstalledApps(SimpleMDMpy.SimpleMDM.Resource):
     """Installed apps represent apps that are installed and exist on devices."""
     def __init__(self, api_key):
         super().__init__(api_key)

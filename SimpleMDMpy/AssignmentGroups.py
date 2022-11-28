@@ -5,7 +5,7 @@
 
 import SimpleMDMpy.SimpleMDM
 
-class AssignmentGroups(SimpleMDMpy.SimpleMDM.Connection):
+class AssignmentGroups(SimpleMDMpy.SimpleMDM.Resource):
     """assignment groups module for SimpleMDMpy"""
     def __init__(self, api_key):
         super().__init__(api_key)

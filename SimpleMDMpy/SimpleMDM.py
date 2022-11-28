@@ -14,7 +14,7 @@ from SimpleMDMpy.Exceptions import *
 import os
 
 
-class Connection: #pylint: disable=old-style-class,too-few-public-methods
+class Resource: #pylint: disable=old-style-class,too-few-public-methods
     """Create connection with API key"""
 
     def __init__(self, api_key, proxies=None, timeout=30, retry_count=2):
@@ -38,7 +38,7 @@ class Connection: #pylint: disable=old-style-class,too-few-public-methods
         self.session.mount("http://", adapter)
     
     def __del__(self):
-        # This runs when the Connection object is being deinitialized
+        # This runs when the Resource object is being deinitialized
         # This properly closes the session
         self.session.close()
 
@@ -122,7 +122,7 @@ class Connection: #pylint: disable=old-style-class,too-few-public-methods
         return resp
 
 
-class RateLimitedConnection(Connection):
+class RateLimitedResource(Resource):
     """Create rate limited connection with API key"""
 
     def __init__(self, *args, **kwargs):

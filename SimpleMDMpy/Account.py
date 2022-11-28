@@ -5,7 +5,7 @@
 
 import SimpleMDMpy.SimpleMDM
 
-class Account(SimpleMDMpy.SimpleMDM.Connection):
+class Account(SimpleMDMpy.SimpleMDM.Resource):
     """account class provides auth and basic account details"""
     def __init__(self, api_key):
         super().__init__(api_key)

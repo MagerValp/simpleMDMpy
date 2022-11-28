@@ -5,7 +5,7 @@
 
 import SimpleMDMpy.SimpleMDM
 
-class CustomConfigurationProfiles(SimpleMDMpy.SimpleMDM.Connection):
+class CustomConfigurationProfiles(SimpleMDMpy.SimpleMDM.Resource):
     """work with custom profiles"""
     def __init__(self, api_key):
         super().__init__(api_key)

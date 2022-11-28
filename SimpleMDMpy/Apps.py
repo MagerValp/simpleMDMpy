@@ -5,7 +5,7 @@
 
 import SimpleMDMpy.SimpleMDM
 
-class Apps(SimpleMDMpy.SimpleMDM.Connection):
+class Apps(SimpleMDMpy.SimpleMDM.Resource):
     """ apps module for SimpleMDMpy"""
     def __init__(self, api_key):
         super().__init__(api_key)

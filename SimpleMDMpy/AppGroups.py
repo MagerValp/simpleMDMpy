@@ -5,7 +5,7 @@
 
 import SimpleMDMpy.SimpleMDM
 
-class AppGroups(SimpleMDMpy.SimpleMDM.Connection):
+class AppGroups(SimpleMDMpy.SimpleMDM.Resource):
     """App Groups class provides interaction with Application Groups"""
     def __init__(self, api_key):
         super().__init__(api_key)
