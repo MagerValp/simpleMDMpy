@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class DeviceGroups(SimpleMDMpy.SimpleMDM.Connection):
     """device groups module for SimpleMDMpy"""
     def __init__(self, api_key):
-        SimpleMDMpy.SimpleMDM.Connection.__init__(self, api_key)
+        super().__init__(self, api_key)
         self.url = self._url("/device_groups")
 
     def get_device_group(self, device_group_id="all"):

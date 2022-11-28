@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class DepServers(SimpleMDMpy.SimpleMDM.Connection):
     """module for interacting with dep server configurations"""
     def __init__(self, api_key):
-        SimpleMDMpy.SimpleMDM.Connection.__init__(self, api_key)
+        super().__init__(self, api_key)
         self.url = self._url("/dep_servers")
 
     def get_dep_servers(self, dep_server_id="all"):

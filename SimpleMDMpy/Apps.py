@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class Apps(SimpleMDMpy.SimpleMDM.Connection):
     """ apps module for SimpleMDMpy"""
     def __init__(self, api_key):
-        SimpleMDMpy.SimpleMDM.Connection.__init__(self, api_key)
+        super().__init__(self, api_key)
         self.url = self._url("/apps")
 
     def get_app(self, app_id="all"):

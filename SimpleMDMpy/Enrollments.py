@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class Enrollments(SimpleMDMpy.SimpleMDM.Connection):
     """enrollments module for SimpleMDMpy"""
     def __init__(self, api_key):
-        SimpleMDMpy.SimpleMDM.Connection.__init__(self, api_key)
+        super().__init__(self, api_key)
         self.url = self._url("/enrollments")
 
     def get_enrollments(self, enrollment_id="all"):

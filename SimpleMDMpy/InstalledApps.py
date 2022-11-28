@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class InstalledApps(SimpleMDMpy.SimpleMDM.Connection):
     """Installed apps represent apps that are installed and exist on devices."""
     def __init__(self, api_key):
-        SimpleMDMpy.SimpleMDM.Connection.__init__(self, api_key)
+        super().__init__(self, api_key)
         self.url = self._url("/installed_apps")
 
     def get_app(self, installed_app_id):

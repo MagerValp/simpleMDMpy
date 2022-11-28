@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class AppGroups(SimpleMDMpy.SimpleMDM.Connection):
     """App Groups class provides interaction with Application Groups"""
     def __init__(self, api_key):
-        SimpleMDMpy.SimpleMDM.Connection.__init__(self, api_key)
+        super().__init__(self, api_key)
         self.url = self._url("/app_groups")
 
     def get_app_group(self, app_group_id="all"):

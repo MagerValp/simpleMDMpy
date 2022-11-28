@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class Account(SimpleMDMpy.SimpleMDM.Connection):
     """account class provides auth and basic account details"""
     def __init__(self, api_key):
-        SimpleMDMpy.SimpleMDM.Connection.__init__(self, api_key)
+        super().__init__(self, api_key)
         self.url = self._url("/account")
 
     def get_account_details(self):

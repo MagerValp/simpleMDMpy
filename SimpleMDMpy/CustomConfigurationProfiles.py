@@ -8,7 +8,7 @@ import SimpleMDMpy.SimpleMDM
 class CustomConfigurationProfiles(SimpleMDMpy.SimpleMDM.Connection):
     """work with custom profiles"""
     def __init__(self, api_key):
-        SimpleMDMpy.SimpleMDM.Connection.__init__(self, api_key)
+        super().__init__(self, api_key)
         self.url = self._url("/custom_configuration_profiles")
 
     def get_profiles(self):

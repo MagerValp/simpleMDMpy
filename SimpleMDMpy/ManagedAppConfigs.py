@@ -9,7 +9,7 @@ class ManagedAppConfigs(SimpleMDMpy.SimpleMDM.Connection):
     """Create, modify, and remove the managed app configuration
     associated with an app."""
     def __init__(self, api_key):
-        SimpleMDMpy.SimpleMDM.Connection.__init__(self, api_key)
+        super().__init__(self, api_key)
         self.url = self._url("/apps")
 
     def get_managed_configs(self, app_id):
