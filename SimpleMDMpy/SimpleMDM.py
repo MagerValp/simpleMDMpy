@@ -10,11 +10,8 @@ import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 import time
+from SimpleMDMpy.Exceptions import *
 
-
-class ApiError(Exception):
-    """Catch for API Error"""
-    pass
 
 class Connection(object): #pylint: disable=old-style-class,too-few-public-methods
     """Create connection with API key"""

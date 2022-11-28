@@ -1,6 +1,10 @@
 """ SimpleMDMpy - A python API for interacting with SimpleMDM API.
 Your Simple MDM API is required."""
 #pylint: disable=invalid-name
+
+
+# Import exceptions
+from SimpleMDMpy.Exceptions import *
 from SimpleMDMpy.Account import Account
 from SimpleMDMpy.AppGroups import AppGroups
 from SimpleMDMpy.Apps import Apps
