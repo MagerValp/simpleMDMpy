@@ -13,7 +13,7 @@ import time
 from SimpleMDMpy.Exceptions import *
 
 
-class Connection(object): #pylint: disable=old-style-class,too-few-public-methods
+class Connection: #pylint: disable=old-style-class,too-few-public-methods
     """Create connection with API key"""
 
     def __init__(self, api_key, proxies=None, timeout=30, retry_count=2):
@@ -23,9 +23,6 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
             "timeout": timeout,
         }
 
-        self.last_device_req_timestamp = 0
-        self.device_req_rate_limit = 1.0
-        
         # Setup a session that can retry, helps with rate limiting end-points
         # https://findwork.dev/blog/advanced-usage-python-requests-timeouts-retries-hooks/#retry-on-failure
         # https://macadmins.slack.com/archives/C4HJ6U742/p1652996411750219
@@ -48,11 +45,16 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
         """Base API URL"""
         return 'https://a.simplemdm.com/api/v1' + path
 
+    def _pre_request_hook(self):
+        """Called before a request call is made to allow for customization"""
+        pass
+
     def _requests_call(self, method, url, **kwargs):
         """Perform call using specified method and optional args"""
         args = {**kwargs, **self.request_config}
         try:
             while True:
+                self._pre_request_hook()
                 resp = self.session.request(method, url, **args)
                 # A 429 means we've hit the rate limit, so back off and retry
                 if method == "get" and resp.status_code == 429:
@@ -64,10 +66,6 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
         if 200 <= resp.status_code <= 207 or resp.status_code == 429:
             return resp
         raise ApiError(f"API returned status code {resp.status_code}")
-
-    # TODO: make _is_devices_req generic for any future rate limited endpoints
-    def _is_devices_req(self, url):
-        return url.startswith(self._url("/devices"))
 
     def _get_data(self, url, params=None):
         """GET call to SimpleMDM API. Handles json decoding and pagination."""
@@ -83,12 +81,6 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
             req_params = params.copy()
         req_params['limit'] = req_params.get('limit', 100)
         while has_more:
-            # Calls to /devices should be rate limited
-            if self._is_devices_req(url):
-                seconds_since_last_device_req = time.monotonic() - self.last_device_req_timestamp
-                if seconds_since_last_device_req < self.device_req_rate_limit:
-                    time.sleep(self.device_req_rate_limit - seconds_since_last_device_req)
-            self.last_device_req_timestamp = time.monotonic()
             resp = self._requests_call("get", url, params=req_params)
             resp_json = resp.json()
             data = resp_json['data']
@@ -127,3 +119,19 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
         """DELETE call to SimpleMDM API"""
         resp = self._requests_call("delete", url)
         return resp
+
+
+class RateLimitedConnection(Connection):
+    """Create rate limited connection with API key"""
+
+    def __init__(self, *args, **kwargs):
+        self.last_req_timestamp = 0.0
+        self.min_req_interval = 1.0
+        super().__init__(*args, **kwargs)
+
+    def _pre_request_hook(self):
+        """Implement rate limiting to this request endpoint"""
+        seconds_since_last_req = time.monotonic() - self.last_req_timestamp
+        if seconds_since_last_req < self.min_req_interval:
+            time.sleep(self.min_req_interval - seconds_since_last_req)
+        self.last_req_timestamp = time.monotonic()
