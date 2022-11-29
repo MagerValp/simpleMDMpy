@@ -46,6 +46,13 @@ class Resource: #pylint: disable=old-style-class,too-few-public-methods
         """Called before a request call is made to allow for customization"""
         pass
 
+    def _get_response_errors(self, resp):
+        try:
+            errors = resp.json()["errors"]
+            return ", ".join(x["title"] for x in errors)
+        except:
+            return resp.content.decode("utf-8", errors="backslashreplace")
+
     def _requests_call(self, method, url, **kwargs):
         """Perform call using specified method and optional args"""
         args = {**kwargs, **self.request_config}
@@ -62,7 +69,13 @@ class Resource: #pylint: disable=old-style-class,too-few-public-methods
             raise ApiError(f"API request failed: {e}")
         if 200 <= resp.status_code <= 207 or resp.status_code == 429:
             return resp
-        raise ApiError(f"API returned status code {resp.status_code}")
+        error_msg = f"API returned status code {resp.status_code}"
+        try:
+            server_error_msg = self._get_response_errors(resp)
+            error_msg += f": {server_error_msg}"
+        except:
+            pass
+        raise ApiError(error_msg)
 
     def get_data(self, url, params=None):
         """GET call to SimpleMDM API. Handles json decoding and pagination."""
