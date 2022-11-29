@@ -5,7 +5,7 @@
 
 import SimpleMDMpy.SimpleMDM
 
-class LostMode(SimpleMDMpy.SimpleMDM.Resource):
+class LostMode(SimpleMDMpy.SimpleMDM.RateLimitedResource):
     """Interact with lost mode on a device."""
     def __init__(self, api_key):
         super().__init__(api_key)
