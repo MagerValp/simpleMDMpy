@@ -10,10 +10,6 @@ A SimpleMDM API key is required."""
 from SimpleMDMpy.Exceptions import *
 
 
-# New session based API
-from SimpleMDMpy.SimpleMDM import Session
-
-
 # Imports for legacy API use
 from SimpleMDMpy.Account import Account
 from SimpleMDMpy.AppGroups import AppGroups
@@ -32,3 +28,7 @@ from SimpleMDMpy.ManagedAppConfigs import ManagedAppConfigs
 from SimpleMDMpy.PushCertificate import PushCertificate
 from SimpleMDMpy.ScriptJobs import ScriptJobs
 from SimpleMDMpy.Scripts import Scripts
+
+
+# New session based API
+from SimpleMDMpy.SimpleMDMSession import Session

@@ -8,7 +8,7 @@ class ScriptJobs(Resource):
     """scripts module for SimpleMDMpy"""
     def __init__(self, api_key):
         super().__init__(api_key)
-        self.url = self._url("/script_jobs")
+        self.url = self.api_url("/script_jobs")
 
     def get_job(self, job_id="all"):
         """Jobs represent scripts that have been set to run on a collection of
@@ -25,7 +25,7 @@ class ScriptJobs(Resource):
         url = self.url
         if job_id != 'all':
             url = url + "/" + str(job_id)
-        return self._get_data(url)
+        return self.get_data(url)
 
     def create_job(self, script_id, device_ids=None, group_ids=None, assignment_group_ids=None):
         """
@@ -54,7 +54,7 @@ class ScriptJobs(Resource):
         if not params:
             raise ApiError(f"At least one of device_ids, group_ids, or assignment_group_ids must be provided")
         params['script_id'] = str(script_id)
-        resp = self._post_data(self.url, params)
+        resp = self.post_data(self.url, params)
         if not 200 <= resp.status_code <= 207:
             raise ApiError(f"Job creation failed with status code {resp.status_code}: {resp.content}")
         return resp.json()['data']
@@ -65,4 +65,4 @@ class ScriptJobs(Resource):
         before the device has received the command.
         """
         url = self.url + "/" + str(job_id)
-        return self._delete_data(url)
+        return self.delete_data(url)

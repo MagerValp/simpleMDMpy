@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+"""Resource classes to handle requests to the API endpoints"""
 
-"""Session handling for SimpleMDM API"""
+
 #pylint: disable=invalid-name
 
 from builtins import str
@@ -11,7 +11,6 @@ from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 import time
 from SimpleMDMpy.Exceptions import *
-import os
 
 
 class Resource: #pylint: disable=old-style-class,too-few-public-methods
@@ -42,11 +41,11 @@ class Resource: #pylint: disable=old-style-class,too-few-public-methods
         # This properly closes the session
         self.session.close()
 
-    def _url(self, path): #pylint: disable=no-self-use
+    def api_url(self, path): #pylint: disable=no-self-use
         """Base API URL"""
         return 'https://a.simplemdm.com/api/v1' + path
 
-    def _pre_request_hook(self):
+    def pre_request_hook(self):
         """Called before a request call is made to allow for customization"""
         pass
 
@@ -55,7 +54,7 @@ class Resource: #pylint: disable=old-style-class,too-few-public-methods
         args = {**kwargs, **self.request_config}
         try:
             while True:
-                self._pre_request_hook()
+                self.pre_request_hook()
                 resp = self.session.request(method, url, **args)
                 # A 429 means we've hit the rate limit, so back off and retry
                 if method == "get" and resp.status_code == 429:
@@ -68,7 +67,7 @@ class Resource: #pylint: disable=old-style-class,too-few-public-methods
             return resp
         raise ApiError(f"API returned status code {resp.status_code}")
 
-    def _get_data(self, url, params=None):
+    def get_data(self, url, params=None):
         """GET call to SimpleMDM API. Handles json decoding and pagination."""
         has_more = True
         list_data = []
@@ -95,28 +94,28 @@ class Resource: #pylint: disable=old-style-class,too-few-public-methods
                 req_params["starting_after"] = data[-1].get('id')
         return list_data
 
-    def _get_raw_content(self, url, params=None):
+    def get_raw_content(self, url, params=None):
         """GET call to SimpleMDM API. Returns the raw response content."""
         resp = self._requests_call("get", url, params=params)
         return resp.content
 
 
-    def _patch_data(self, url, data, files=None):
+    def patch_data(self, url, data, files=None):
         """PATCH call to SimpleMDM API"""
         resp = self._requests_call("patch", url, data=data, files=files)
         return resp
 
-    def _post_data(self, url, data, files=None):
+    def post_data(self, url, data, files=None):
         """POST call to SimpleMDM API"""
         resp = self._requests_call("post", url, data=data, files=files)
         return resp
 
-    def _put_data(self, url, data, files=None):
+    def put_data(self, url, data, files=None):
         """PUT call to SimpleMDM API"""
         resp = self._requests_call("put", url, data=data, files=files)
         return resp
 
-    def _delete_data(self, url):
+    def delete_data(self, url):
         """DELETE call to SimpleMDM API"""
         resp = self._requests_call("delete", url)
         return resp
@@ -130,51 +129,10 @@ class RateLimitedResource(Resource):
         self.min_req_interval = 1.0
         super().__init__(*args, **kwargs)
 
-    def _pre_request_hook(self):
+    def pre_request_hook(self):
         """Implement rate limiting to this request endpoint"""
         seconds_since_last_req = time.monotonic() - self.last_req_timestamp
         if seconds_since_last_req < self.min_req_interval:
             time.sleep(self.min_req_interval - seconds_since_last_req)
         self.last_req_timestamp = time.monotonic()
 
-
-class Session:
-    """A session object is the main way to use the SimpleMDMpy API.
-
-    Instantiate it with an appropriate API key:
-        
-        import SimpleMDMpy
-        session = SimpleMDMpy.Session(api_key="hbiBOR5NEhbw4u…")
-
-    Or you can load the API key from an environement variable instead:
-
-        session = SimpleMDMpy.Session(key_from_env="API_KEY")
-
-    """
-
-    def __init__(self, api_key=None, key_from_env=None, **conn_args):
-        if api_key is None and key_from_env is not None:
-            api_key = self._load_key_from_env(key_from_env)
-        self.account = Account(api_key, **conn_args)
-        self.appGroups = AppGroups(api_key, **conn_args)
-        self.apps = Apps(api_key, **conn_args)
-        self.assignmentGroups = AssignmentGroups(api_key, **conn_args)
-        self.customAttributes = CustomAttributes(api_key, **conn_args)
-        self.customConfigurationProfiles = CustomConfigurationProfiles(api_key, **conn_args)
-        self.depServers = DepServers(api_key, **conn_args)
-        self.deviceGroups = DeviceGroups(api_key, **conn_args)
-        self.devices = Devices(api_key, **conn_args)
-        self.enrollments = Enrollments(api_key, **conn_args)
-        self.installedApps = InstalledApps(api_key, **conn_args)
-        self.logs = Logs(api_key, **conn_args)
-        self.lostMode = LostMode(api_key, **conn_args)
-        self.managedAppConfigs = ManagedAppConfigs(api_key, **conn_args)
-        self.pushCertificate = PushCertificate(api_key, **conn_args)
-        self.scriptJobs = ScriptJobs(api_key, **conn_args)
-        self.scripts = Scripts(api_key, **conn_args)
-
-    def _load_key_from_env(self, name):
-        api_key = os.getenv(name)
-        if not api_key:
-            raise ApiError(f"{name} environment variable not set")
-        return api_key

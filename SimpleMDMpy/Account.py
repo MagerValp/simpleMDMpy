@@ -9,11 +9,11 @@ class Account(SimpleMDMpy.SimpleMDM.Resource):
     """account class provides auth and basic account details"""
     def __init__(self, api_key):
         super().__init__(api_key)
-        self.url = self._url("/account")
+        self.url = self.api_url("/account")
 
     def get_account_details(self):
         """returns account details as dict"""
-        return self._get_data(self.url)
+        return self.get_data(self.url)
 
     def set_account_details(self, name=None, country_code=None):
         """set account detail"""
@@ -22,4 +22,4 @@ class Account(SimpleMDMpy.SimpleMDM.Resource):
             data['name'] = name
         if country_code:
             data['apple_store_country_code'] = country_code
-        return self._patch_data(self.url, data)
+        return self.patch_data(self.url, data)

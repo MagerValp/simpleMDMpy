@@ -9,7 +9,7 @@ class Logs(SimpleMDMpy.SimpleMDM.Resource):
     """GET all the LOGS"""
     def __init__(self, api_key):
         super().__init__(api_key)
-        self.url = self._url("/logs")
+        self.url = self.api_url("/logs")
     
     def get_logs(self, starting_after=None, limit=None):
         """Returns logs, and I mean all the LOGS
@@ -30,4 +30,4 @@ class Logs(SimpleMDMpy.SimpleMDM.Resource):
             params['starting_after'] = starting_after
         if limit:
             params['limit'] = limit
-        return self._get_data(url, params=params)
+        return self.get_data(url, params=params)

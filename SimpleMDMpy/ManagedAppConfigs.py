@@ -10,13 +10,13 @@ class ManagedAppConfigs(SimpleMDMpy.SimpleMDM.Resource):
     associated with an app."""
     def __init__(self, api_key):
         super().__init__(api_key)
-        self.url = self._url("/apps")
+        self.url = self.api_url("/apps")
 
     def get_managed_configs(self, app_id):
         """"Retrieve the managed configs for an app."""
         url = self.url + "/" + app_id + "/managed_configs"
         data = {}
-        return self._get_data(url, data)
+        return self.get_data(url, data)
 
     def push_updates(self, app_id):
         """Push any updates to the managed configurations
@@ -25,10 +25,10 @@ class ManagedAppConfigs(SimpleMDMpy.SimpleMDM.Resource):
         This is necessary after making changes through the API."""
         url = self.url + "/" + app_id + "/managed_configs/push"
         data = {}
-        return self._post_data(url, data)
+        return self.post_data(url, data)
 
     def delete_config(self, app_id, managed_config_id):
         """Delete managed config from an app by ID."""
         url = self.url + "/" + app_id + "/managed_configs/" + managed_config_id
         data = {}
-        return self._delete_data(url, data) #pylint: disable=too-many-function-args
+        return self.delete_data(url, data) #pylint: disable=too-many-function-args

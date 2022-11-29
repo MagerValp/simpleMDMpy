@@ -8,7 +8,7 @@ class Scripts(Resource):
     """scripts module for SimpleMDMpy"""
     def __init__(self, api_key):
         super().__init__(api_key)
-        self.url = self._url("/scripts")
+        self.url = self.api_url("/scripts")
 
     def get_script(self, script_id="all"):
         """
@@ -26,7 +26,7 @@ class Scripts(Resource):
         url = self.url
         if script_id != 'all':
             url = url + "/" + str(script_id)
-        return self._get_data(url)
+        return self.get_data(url)
 
     def create_script(self, name, variable_support, content):
         """
@@ -47,7 +47,7 @@ class Scripts(Resource):
         files = {
             'file': ('script.sh', content)
         }
-        resp = self._post_data(self.url, params, files)
+        resp = self.post_data(self.url, params, files)
         if not 200 <= resp.status_code <= 207:
             raise ApiError(f"Script creation failed with status code {resp.status_code}: {resp.content}")
         return resp.json()['data']
@@ -70,7 +70,7 @@ class Scripts(Resource):
             }
         if not params and not files:
             raise ApiError(f"Missing updated variables.")
-        resp = self._patch_data(url, params, files)
+        resp = self.patch_data(url, params, files)
         if not 200 <= resp.status_code <= 207:
             raise ApiError(f"Script update failed with status code {resp.status_code}: {resp.content}")
         return resp.json()['data']
@@ -79,4 +79,4 @@ class Scripts(Resource):
         """You can use this method to delete a script from your account. Any
         existing Script Jobs will not be changed."""
         url = self.url + "/" + str(script_id)
-        return self._delete_data(url)
+        return self.delete_data(url)

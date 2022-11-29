@@ -9,7 +9,7 @@ class Enrollments(SimpleMDMpy.SimpleMDM.Resource):
     """enrollments module for SimpleMDMpy"""
     def __init__(self, api_key):
         super().__init__(api_key)
-        self.url = self._url("/enrollments")
+        self.url = self.api_url("/enrollments")
 
     def get_enrollments(self, enrollment_id="all"):
         """get a devices group"""
@@ -17,16 +17,16 @@ class Enrollments(SimpleMDMpy.SimpleMDM.Resource):
         if enrollment_id != 'all':
             url = url + "/" + enrollment_id
         data = {}
-        return self._get_data(url, data)
+        return self.get_data(url, data)
 
     def send_invitation(self, enrollment_id, contact):
         """Send an enrollment invitation to an email address or phone number."""
         url = self.url + "/" + enrollment_id + "/invitations"
         data = {'contact': contact}
-        return self._post_data(url, data)
+        return self.post_data(url, data)
 
     def delete_enrollment(self, enrollment_id):
         """delete enrollment"""
         url = self.url + "/" + enrollment_id
         data = {}
-        return self._delete_data(url, data) #pylint: disable=too-many-function-args
+        return self.delete_data(url, data) #pylint: disable=too-many-function-args

@@ -9,25 +9,25 @@ class LostMode(SimpleMDMpy.SimpleMDM.RateLimitedResource):
     """Interact with lost mode on a device."""
     def __init__(self, api_key):
         super().__init__(api_key)
-        self.url = self._url("/devices")
+        self.url = self.api_url("/devices")
 
     def enable(self, device_id):
         """Activate lost mode on a device."""
         url = self.url + "/" + str(device_id) + "/lost_mode"
         data = {}
-        return self._post_data(url, data)
+        return self.post_data(url, data)
 
     def disable(self, device_id):
         """Disable lost mode on a device."""
         url = self.url + "/" + str(device_id) + "/lost_mode"
-        return self._delete_data(url)
+        return self.delete_data(url)
 
     def play_sound(self, device_id):
         """Request that the device play a sound to assist
         with locating it."""
         url = self.url + "/" + str(device_id) + "/lost_mode/play_sound"
         data = {}
-        return self._post_data(url, data)
+        return self.post_data(url, data)
 
     def update_location(self, device_id):
         """Request that the device provide its current,
@@ -35,4 +35,4 @@ class LostMode(SimpleMDMpy.SimpleMDM.RateLimitedResource):
         using the devices endpoint."""
         url = self.url + "/" + str(device_id) + "/lost_mode/update_location"
         data = {}
-        return self._post_data(url, data)
+        return self.post_data(url, data)

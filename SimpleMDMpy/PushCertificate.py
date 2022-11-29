@@ -10,12 +10,12 @@ class PushCertificate(SimpleMDMpy.SimpleMDM.Resource):
     """Push cert module actions"""
     def __init__(self, api_key):
         super().__init__(api_key)
-        self.url = self._url("/push_certificate")
+        self.url = self.api_url("/push_certificate")
 
     def getpush_certificate(self):
         """Show details related to the current push
         certificate being used."""
-        return self._get_data(self.url)
+        return self.get_data(self.url)
 
     def update_certificate(self, file, apple_id):
         """Upload a new certificate and replace the
@@ -24,7 +24,7 @@ class PushCertificate(SimpleMDMpy.SimpleMDM.Resource):
         data = {}
         if apple_id:
             data["apple_id"] = apple_id
-        return self._put_data(self.url, data, files)
+        return self.put_data(self.url, data, files)
 
     def get_signed_csr(self):
         """Download a signed CSR file. This file is
@@ -33,4 +33,4 @@ class PushCertificate(SimpleMDMpy.SimpleMDM.Resource):
         encoded plist for upload to the Apple Push
         Certificates Portal. The value of the data
         key can be uploaded to Apple as is"""
-        return self._get_data(self.url + "/scsr")
+        return self.get_data(self.url + "/scsr")
