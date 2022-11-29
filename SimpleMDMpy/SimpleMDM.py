@@ -3,9 +3,6 @@
 
 #pylint: disable=invalid-name
 
-from builtins import str
-from builtins import range
-from builtins import object
 import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
