@@ -15,11 +15,11 @@ class DeviceGroups(SimpleMDMpy.SimpleMDM.Connection):
         """get a devices group"""
         url = self.url
         if device_group_id != 'all':
-            url = url + "/" + device_group_id
+            url = url + "/" + str(device_group_id)
         return self._get_data(url)
 
     def assign_device(self, device_id, device_group_id):
         """assign device to a group"""
-        url = self.url + "/" + device_group_id + "/devices/" + str(device_id)
+        url = self.url + "/" + str(device_group_id) + "/devices/" + str(device_id)
         data = {}
         return self._post_data(url, data)
