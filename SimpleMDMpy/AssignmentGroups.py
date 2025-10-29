@@ -57,10 +57,15 @@ class AssignmentGroups(SimpleMDMpy.SimpleMDM.Connection):
         url = self.url + "/" + assignment_group_id + "/device_groups/" + device_group_id
         return self._delete_data(url)
 
-    def assign_device(self, assignment_group_id, device_id):
+    def assign_device(self, assignment_group_id, device_id, remove_others=False):
         """assign device to an assignment group"""
-        url = self.url + "/" + assignment_group_id + "/devices/" + str(device_id)
-        data = {}
+        url = self.url + "/" + str(assignment_group_id) + "/devices/" + str(device_id)
+        if remove_others:
+            data = {
+                "remove_others": "true",
+            }
+        else:
+            data = {}
         return self._post_data(url, data)
 
     def unassign_device(self, assignment_group_id, device_id):
