@@ -172,3 +172,16 @@ class Devices(SimpleMDMpy.SimpleMDM.Connection):
         url = self.url + "/" + str(device_id) + "/custom_attribute_values/" + custom_attribute_name
         data = {'value': value}
         return self._put_data(url, data)
+
+    def set_custom_attributes(self, device_id, **attributes):
+        """Set a custom attribute values from dictionary."""
+        url = self.url + "/" + str(device_id) + "/custom_attribute_values"
+        data = {
+            "data": [],
+        }
+        for key, value in attributes.items():
+            data["data"].append({
+                "name": key,
+                "value": value,
+            })
+        return self._put_data(url, data)
