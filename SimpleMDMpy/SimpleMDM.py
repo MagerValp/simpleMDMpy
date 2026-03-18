@@ -99,19 +99,19 @@ class Connection(object): #pylint: disable=old-style-class,too-few-public-method
 
     def _patch_data(self, url, data, files=None):
         """PATCH call to SimpleMDM API"""
-        resp = requests.patch(url, data, auth=(self.api_key, ""), \
+        resp = requests.patch(url, json=data, auth=(self.api_key, ""), \
             files=files, proxies=self.proxyDict)
         return resp
 
     def _post_data(self, url, data, files=None):
         """POST call to SimpleMDM API"""
-        resp = requests.post(url, data, auth=(self.api_key, ""), \
+        resp = requests.post(url, json=data, auth=(self.api_key, ""), \
             files=files, proxies=self.proxyDict)
         return resp
 
     def _put_data(self, url, data, files=None):
         """PUT call to SimpleMDM API"""
-        resp = requests.put(url, data, auth=(self.api_key, ""), \
+        resp = requests.put(url, json=data, auth=(self.api_key, ""), \
             files=files, proxies=self.proxyDict)
         return resp
 
